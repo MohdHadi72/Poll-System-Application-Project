@@ -27,11 +27,32 @@ function PollSystem(){
     
     const selectOptionObj = options.find((option) => option.id === OptionsId);
    
-    console.log(selectOptionObj);
+    // console.log(selectOptionObj);
 
     if(selectOptionObj){
         selectOptionObj.votes++;
-        console.log(selectOptionObj);
+        // console.log(selectOptionObj);
+
+        displayResult();
         
     }
+}
+
+function displayResult() {
+
+    let result = document.getElementById('result');
+ result.innerHTML = ""
+
+ options.forEach((options)=>{
+    let percentage = ((option.votes / getVoteSystem()) * 100 ).toFixed(2) || 0 ;
+    let width = percentage > 0 ? percentage + '%' : "0%";
+    
+ })
+
+
+    
+}
+
+function getVoteSystem() {
+    return options.reduce((total,option)=> total + option.votes,0);
 }
