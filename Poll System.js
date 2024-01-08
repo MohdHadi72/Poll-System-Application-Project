@@ -7,52 +7,52 @@ const options  = [
 ]
 
 
-// console.log(options)
+
 function PollSystem(){
-    
-
-
     const pollCheck = document.querySelector('input[name="poll"]:checked');
-   
-//    console.log(selectOptionObj)
 
     if(!pollCheck){
+
         alert('Please Select Any Language For Give The Vote');
         return;
     }
-
-
-    let OptionsId = pollCheck.value;
-
     
+    let OptionsId = pollCheck.value;
     const selectOptionObj = options.find((option) => option.id === OptionsId);
-   
-    // console.log(selectOptionObj);
-
     if(selectOptionObj){
         selectOptionObj.votes++;
-        // console.log(selectOptionObj);
-
         displayResult();
         
     }
 }
-
 function displayResult() {
 
     let result = document.getElementById('result');
  result.innerHTML = ""
 
- options.forEach((options)=>{
-    let percentage = ((option.votes / getVoteSystem()) * 100 ).toFixed(2) || 0 ;
-    let width = percentage > 0 ? percentage + '%' : "0%";
-    
- })
+ options.forEach((option)=>{
+    const percentage = ((option.votes / getVoteSystem()) * 100 ).toFixed(2) || 0 ;
+    const width = percentage > 0 ? percentage + '%' : "0%";
 
+    const optionResult = document.createElement('div');
+    optionResult.className = "options-Result";
+    optionResult.innerHTML = `
 
+    <span class="options-text">${option.text}</span>
     
+    <div class="bar-container">
+     <div class="bar" style="width: ${width};"></div>
+     </div>
+    
+     <span class="percentage">${percentage}%</span>
+
+    `;
+    result.appendChild(optionResult);
+ });
 }
 
 function getVoteSystem() {
     return options.reduce((total,option)=> total + option.votes,0);
 }
+
+displayResult();
